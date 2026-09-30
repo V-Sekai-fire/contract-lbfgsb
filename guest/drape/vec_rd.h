@@ -22,7 +22,7 @@
 #include <string>
 #include <vector>
 
-#include "../rd_compute.h"
+#include "rd_compute.h"
 #include "../drape_table.h"
 #include "lbfgsb_vec.h"
 
