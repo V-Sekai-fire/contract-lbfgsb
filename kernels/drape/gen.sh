@@ -21,6 +21,7 @@ set -euo pipefail
 
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ROOT="$(cd "$HERE/../.." && pwd)"
+RUNTIME="${GUEST_RUNTIME_ROOT:-$(cd "$ROOT/../../2-contract/guest-runtime" && pwd)}"
 LEAN="${CLOTH_LEAN:-$ROOT/lean}"
 BUILD="${BUILD_DIR:-$ROOT/build}"
 SPV="$BUILD/spv-drape"
@@ -75,7 +76,7 @@ for k in $SPIRV; do
 		-reflection-json "$SPV/$k.refl.json" -o "$SPV/$k.spv" "$HERE/slang/$k.slang"
 done
 echo "== binding table =="
-python "$HERE/../avbd/gen_avbd_kernel_table.py" --namespace drape_table --build-dir "$SPV" \
+python "$RUNTIME/kernels/avbd/gen_avbd_kernel_table.py" --namespace drape_table --build-dir "$SPV" \
 	--out "$HERE/DrapeKernelTable.inc" $SPIRV
 echo "== embedding SPIR-V =="
-python "$HERE/../embed_spv.py" --namespace drape_kernels "$SPV" "$BUILD/drape_kernels.inc"
+python "$RUNTIME/kernels/embed_spv.py" --namespace drape_kernels "$SPV" "$BUILD/drape_kernels.inc"
