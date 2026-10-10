@@ -12,4 +12,4 @@ The Lean package defines the bounded quasi-Newton solver's kernels and emits the
 
 ## Licence
 
-Apache-2.0 OR MIT, as the SPDX headers in the source state.
+MIT. See [LICENSE](LICENSE).
